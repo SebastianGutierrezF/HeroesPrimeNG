@@ -34,6 +34,7 @@
             <span class="p-input-icon-left">
                 <i class="pi pi-search"></i>
                 <input pInputText type="text" (input)="dt.filterGlobal(filterSearch($event), 'contains')" placeholder="Search..." />
+                <p-button icon="pi pi-refresh" (click)="dt.reset()" severity="secondary" [text]="true" [rounded]="true"></p-button>
             </span>
         </div>
     </ng-template>

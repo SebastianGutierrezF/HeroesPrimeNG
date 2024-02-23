@@ -51,12 +51,11 @@ export class LoginComponent implements OnInit {
   }
 
   getData(event: TableLazyLoadEvent) {
-    this.service.BD_POST('', event).subscribe((data: any) => {
+    this.service.BD_POST('getAll', event).subscribe((data: any) => {
       if (data.data.length > 0) {
         this.products = data.data;
         this.total = data.count;
       }
-
     });
   }
 
@@ -126,7 +125,7 @@ export class LoginComponent implements OnInit {
   saveProduct() {
     if (this.product.nombre?.trim()) {
       if (this.product.id) {
-        this.service.BD_POST('update', this.product).subscribe((data: any) => {
+        this.service.BD_PUT('update', this.product).subscribe((data: any) => {
           if (data.estatus) {
             this.messageService.add({ severity: 'success', summary: 'Successful', detail: `${this.product.nombre} edited`, life: 3000 });
           } else {
@@ -136,7 +135,7 @@ export class LoginComponent implements OnInit {
         })
       } else {
         this.product.id = this.createId();
-        this.service.BD_PUT('', this.product).subscribe((data: any) => {
+        this.service.BD_POST('', this.product).subscribe((data: any) => {
           if (data.estatus) {
             this.messageService.add({ severity: 'success', summary: 'Successful', detail: `${this.product.nombre} created`, life: 3000 });
             this.product = {};
