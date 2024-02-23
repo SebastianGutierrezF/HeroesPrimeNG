@@ -63,7 +63,11 @@ export class LoginComponent implements OnInit {
 
   showDialog(header: string) {
     this.ref = this.dialogService.open(RegistroComponent, {
-      header: header, 
+      header: header,
+      position: 'top',
+      draggable: true,
+      dismissableMask: true,
+      maximizable: true, 
       data: this.product});
     this.ref.onClose.subscribe((data: any) => {
       if (!data) {
