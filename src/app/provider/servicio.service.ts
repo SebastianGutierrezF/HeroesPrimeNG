@@ -4,25 +4,33 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ServicioService {
-  public api = '';
-  public _url = '/_api.php?opcion=';
+  public api = 'http://127.0.0.1:8000/api/productos/';
   public httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded'
+      'Content-Type': 'application/json'
     })
   };
   constructor(public http: HttpClient) {
-    this.api = 'http://localhost/proyecto/';
+  }
+  
+  // Editar
+  post(model: string, data: any) {
+    return this.http.post(this.api + model, data, this.httpOptions);
   }
 
-  BD_Service_Post(Model: string, Parametros: any, Action: string) {
-    // 'http://localhost/proyecto/' + 'login' +  '/_api.php?opcion=' + 'login'
-    // this.api + Model + this._url + Action
-    return this.http.post(this.api + Model + this._url + Action, Parametros, this.httpOptions);
+  // Agregar
+  put(model: string, data: any) {
+    return this.http.put(this.api + model, data, this.httpOptions);
   }
 
-  BD_Service_Get(Model: string, Action: string) {
-    return this.http.get(this.api + Model + this._url + Action);
+  // Obtener
+  get(model: string,  pagina: number, limit: number) {
+    return this.http.get(this.api + model + '/' + pagina + '/' + limit, this.httpOptions);
+  }
+
+  // Eliminar
+  delete(model: string, data: any) {
+    return this.http.delete(this.api + model + data, this.httpOptions);
   }
 
 }
