@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
 
   loading = false;
 
-  total = 10;
+  total = 0;
 
   ref: DynamicDialogRef | undefined;
 
@@ -53,10 +53,8 @@ export class LoginComponent implements OnInit {
     this.lastTableLazyLoadEvent = event;
     this.loading = true;
     this.service.post('', event).subscribe((data: any) => {
-      if (data.data.length > 0) {
-        this.products = data.data;
-        this.total = data.count;
-      }
+      this.products = data.data;
+      this.total = data.count;
       this.loading = false;
     });
   }
@@ -80,37 +78,32 @@ export class LoginComponent implements OnInit {
   }
 
   deleteSelectedProducts() {
-    let message = { };
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete the selected Heroes?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.loading = true;
-        this.selectedProducts?.forEach(product => {
-          this.service.delete('', product.id).subscribe((data: any) => {
+          this.service.delete('', this.selectedProducts).subscribe((data: any) => {
             if (data.estatus) {
-              message = { severity: 'success', summary: 'Successful', detail: `${product.nombre} deleted`, life: 3000 };
+              this.messageService.add({ severity: 'success', summary: 'Successful', detail: `Selected heroes deleted`, life: 3000 });
+              this.selectedProducts = null;
             } else {
-              message = { severity: 'warn', summary: 'Warning', detail: `${product.nombre} not deleted`, life: 3000 }
+              this.messageService.add({ severity: 'warn', summary: 'Warning', detail: `Failed to deleted selected Heroes`, life: 3000 });
             }
             this.getData(this.lastTableLazyLoadEvent!);
-            this.messageService.add(message);
-            this.loading = false;
-            this.selectedProducts = null;
           })
-        });
-      },
+      }
     });
   }
-  
+
   deleteProduct(product: Product) {
     this.confirmationService.confirm({
       message: `Are you sure you want to delete ${product.nombre}`,
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.service.delete('', product.id).subscribe((data: any) => {
+        this.service.delete('' + product.id).subscribe((data: any) => {
           if (data.estatus) {
             this.messageService.add({ severity: 'success', summary: 'Successful', detail: `${product.nombre} deleted`, life: 3000 });
           } else {

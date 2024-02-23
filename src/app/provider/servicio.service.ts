@@ -29,8 +29,8 @@ export class ServicioService {
   }
 
   // Eliminar
-  delete(model: string, data: any) {
-    return this.http.delete(this.api + model + data, this.httpOptions);
+  delete(model: string, data?: any) {
+    return this.http.delete(this.api + model, {headers: this.httpOptions.headers, body: data});
   }
 
 }
