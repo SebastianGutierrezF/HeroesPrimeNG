@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ServicioService } from '../../../provider/servicio.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Product } from 'src/app/interfaces/product';
-import { TableLazyLoadEvent } from 'primeng/table';
+import { Table, TableLazyLoadEvent } from 'primeng/table';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { RegistroComponent } from '../registro/registro.component';
 
@@ -23,15 +23,11 @@ export class LoginComponent implements OnInit {
     private dialogService: DialogService
   ) { }
 
-  productDialog: boolean = false;
-
   products: Product[] = [];
 
   product!: Product;
 
   selectedProducts!: Product[] | null;
-
-  submitted: boolean = false;
 
   statuses!: any[];
 
@@ -39,11 +35,11 @@ export class LoginComponent implements OnInit {
 
   total = 10;
 
-  categorias = ["DC Comics", "Marvel"];
-
   ref: DynamicDialogRef | undefined;
 
   lastTableLazyLoadEvent?: TableLazyLoadEvent;
+
+  busqueda = "";
 
   ngOnInit() {
     this.statuses = [
@@ -63,12 +59,6 @@ export class LoginComponent implements OnInit {
       }
       this.loading = false;
     });
-  }
-
-  openNew() {
-    this.product = {};
-    this.submitted = false;
-    this.productDialog = true;
   }
 
   showDialog(header: string) {
@@ -134,19 +124,6 @@ export class LoginComponent implements OnInit {
     this.showDialog(`Editar ${product.nombre}`);
   }
 
-  // deleteProduct(product: Product) {
-  //   this.confirmationService.confirm({
-  //     message: 'Are you sure you want to delete ' + product.name + '?',
-  //     header: 'Confirm',
-  //     icon: 'pi pi-exclamation-triangle',
-  //     accept: () => {
-  //       this.products = this.products.filter((val) => val.id !== product.id);
-  //       this.product = {};
-  //       this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
-  //     }
-  //   });
-  // }
-
   saveProduct() {
     if (this.product.nombre?.trim()) {
       if (this.product.id) {
@@ -172,17 +149,6 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  findIndexById(id: string): number {
-    let index = -1;
-    for (let i = 0; i < this.products.length; i++) {
-      if (this.products[i].id === id) {
-        index = i;
-        break;
-      }
-    }
-    return index;
-  }
-
   createId(): string {
     let id = '';
     var chars = '0123456789';
@@ -192,22 +158,13 @@ export class LoginComponent implements OnInit {
     return id;
   }
 
-  getSeverity(status: string) {
-    switch (status) {
-      case 'INSTOCK':
-        return 'success';
-      case 'LOWSTOCK':
-        return 'warning';
-      case 'OUTOFSTOCK':
-        return 'danger';
-      default:
-        return 'info';
-    }
+  filterSearch(event: any) {
+    return event.target.value;
   }
 
-  filterSearch(event: any) {
-    console.log(this.selectedProducts);
-    return event.target.value;
+  clearSearch(dt: Table) {
+    dt.reset();
+    this.busqueda = '';
   }
 
 }

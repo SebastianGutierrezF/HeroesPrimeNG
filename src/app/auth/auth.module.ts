@@ -20,6 +20,8 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     DropdownModule,
     RadioButtonModule,
     DynamicDialogModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    InputGroupModule,
+    InputGroupAddonModule
   ],
   providers: [
     ConfirmationService, 

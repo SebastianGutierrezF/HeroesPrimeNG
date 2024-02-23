@@ -8,13 +8,18 @@ const routes: Routes = [
     path: '',
     children: [
       {
-        path: 'login',
+        path: 'heroes',
         component: LoginComponent
       },
       {
         path: 'registro',
         component: RegistroComponent
       },
+      {
+        path: '**',
+        redirectTo: 'heroes',
+        pathMatch: 'full'
+      }
     ]
   }
 ]
