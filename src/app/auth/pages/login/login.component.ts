@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ServicioService } from '../../../provider/servicio.service';
@@ -43,8 +42,6 @@ export class LoginComponent implements OnInit {
 
   ref: DynamicDialogRef | undefined;
 
-  lastTableLazyLoadEvent?: TableLazyLoadEvent;
-
   ngOnInit() {
     this.statuses = [
       { label: 'INSTOCK', value: 'instock' },
@@ -54,14 +51,12 @@ export class LoginComponent implements OnInit {
   }
 
   getData(event: TableLazyLoadEvent) {
-    this.lastTableLazyLoadEvent = event;
-    this.loading = true;
-    this.service.post('', event).subscribe((data: any) => {
+    this.service.BD_POST('', event).subscribe((data: any) => {
       if (data.data.length > 0) {
         this.products = data.data;
         this.total = data.count;
       }
-      this.loading = false;
+
     });
   }
 
@@ -71,58 +66,52 @@ export class LoginComponent implements OnInit {
     this.productDialog = true;
   }
 
-  showDialog(header: string) {
+  showDialog() {
     this.ref = this.dialogService.open(RegistroComponent, {
-      header: header, 
-      data: this.product});
+      header: "Detalle heroe",
+      data: this.product
+    });
     this.ref.onClose.subscribe((data: any) => {
-      if (!data) {
-        this.product = {};
-        return;
-      } 
       this.product = data;
       this.saveProduct();
     });
   }
 
   deleteSelectedProducts() {
-    let message = { };
+    let message = {};
     this.confirmationService.confirm({
-      message: 'Are you sure you want to delete the selected Hero(s)?',
+      message: 'Are you sure you want to delete the selected heros?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.loading = true;
         this.selectedProducts?.forEach(product => {
-          this.service.delete('', product.id).subscribe((data: any) => {
+          this.service.BD_DELETE('', product.id).subscribe((data: any) => {
             if (data.estatus) {
               message = { severity: 'success', summary: 'Successful', detail: `${product.nombre} deleted`, life: 3000 };
             } else {
               message = { severity: 'warn', summary: 'Warning', detail: `${product.nombre} not deleted`, life: 3000 }
             }
-            this.getData(this.lastTableLazyLoadEvent!);
             this.messageService.add(message);
-            this.loading = false;
+
             this.selectedProducts = null;
           })
         });
       },
     });
   }
-  
+
   deleteProduct(product: Product) {
     this.confirmationService.confirm({
       message: `Are you sure you want to delete ${product.nombre}`,
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.service.delete('', product.id).subscribe((data: any) => {
+        this.service.BD_DELETE('', product.id).subscribe((data: any) => {
           if (data.estatus) {
             this.messageService.add({ severity: 'success', summary: 'Successful', detail: `${product.nombre} deleted`, life: 3000 });
           } else {
             this.messageService.add({ severity: 'success', summary: 'Error', detail: `Failed to deleted ${product.nombre}`, life: 3000 });
           }
-          this.getData(this.lastTableLazyLoadEvent!);
         })
       }
     });
@@ -131,56 +120,30 @@ export class LoginComponent implements OnInit {
 
   editProduct(product: Product) {
     this.product = product;
-    this.showDialog(`Editar ${product.nombre}`);
+    this.showDialog();
   }
-
-  // deleteProduct(product: Product) {
-  //   this.confirmationService.confirm({
-  //     message: 'Are you sure you want to delete ' + product.name + '?',
-  //     header: 'Confirm',
-  //     icon: 'pi pi-exclamation-triangle',
-  //     accept: () => {
-  //       this.products = this.products.filter((val) => val.id !== product.id);
-  //       this.product = {};
-  //       this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
-  //     }
-  //   });
-  // }
 
   saveProduct() {
     if (this.product.nombre?.trim()) {
       if (this.product.id) {
-        this.service.post('update', this.product).subscribe((data: any) => {
+        this.service.BD_POST('update', this.product).subscribe((data: any) => {
           if (data.estatus) {
             this.messageService.add({ severity: 'success', summary: 'Successful', detail: `${this.product.nombre} edited`, life: 3000 });
           } else {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: `Failed to edit ${this.product.nombre}`, life: 3000 });
           }
-          this.getData(this.lastTableLazyLoadEvent!);
           this.product = {};
         })
       } else {
         this.product.id = this.createId();
-        this.service.put('', this.product).subscribe((data: any) => {
+        this.service.BD_PUT('', this.product).subscribe((data: any) => {
           if (data.estatus) {
             this.messageService.add({ severity: 'success', summary: 'Successful', detail: `${this.product.nombre} created`, life: 3000 });
-            this.getData(this.lastTableLazyLoadEvent!);
             this.product = {};
           }
         });
       }
     }
-  }
-
-  findIndexById(id: string): number {
-    let index = -1;
-    for (let i = 0; i < this.products.length; i++) {
-      if (this.products[i].id === id) {
-        index = i;
-        break;
-      }
-    }
-    return index;
   }
 
   createId(): string {
@@ -192,21 +155,7 @@ export class LoginComponent implements OnInit {
     return id;
   }
 
-  getSeverity(status: string) {
-    switch (status) {
-      case 'INSTOCK':
-        return 'success';
-      case 'LOWSTOCK':
-        return 'warning';
-      case 'OUTOFSTOCK':
-        return 'danger';
-      default:
-        return 'info';
-    }
-  }
-
   filterSearch(event: any) {
-    console.log(this.selectedProducts);
     return event.target.value;
   }
 

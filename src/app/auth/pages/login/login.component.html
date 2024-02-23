@@ -1,41 +1,8 @@
-<p-toast></p-toast>
 <p-confirmDialog header="Confirmation" width="425"></p-confirmDialog>
-<!-- Pop up para agregar nuevo producto -->
-<!-- !!! IMPORTANTE !!! Lo convertí en componente a parte -->
-<!-- <p-dialog header="Heroes Detalles" 
-    [(visible)]="productDialog" 
-    [style]="{width: '50vw', height: '200vh'}"
-    [maximizable]="true"
-    position="top">
-    <form action="" [formGroup]="nuevoProducto">
-        <div class="productoForm">
-            <label for="nombre">Nombre</label>
-            <input type="text" id="nombre" pInputText formControlName="nombre"/>
-            <label for="descripcion">Descripcion</label>
-            <textarea rows="4" cols="30" type="textarea" id="descripcion" pInputTextarea formControlName="descripcion"></textarea>
-            <label for="categoria">Categoria</label>
-            <p-dropdown formControlName="categoria" [options]="categorias" placeholder="Selecciona"></p-dropdown>
-            <label for="genero">Genero</label>
-            <div id="genero">
-                <p-radioButton inputId="hombre" value="hombre" formControlName="genero"></p-radioButton>
-                <label for="hombre">Hombre</label>
-                <br>
-                <p-radioButton inputId="mujer" value="mujer" formControlName="genero"></p-radioButton>
-                <label for="mujer">Mujer</label>
-            </div>
-            <label for="urlimagen">URL Imagen</label>
-            <input type="text" id="urlimagen" pInputText formControlName="url"/>
-            <div>
-                <p-button label="Save" [text]="true" icon="pi pi-check" (click)="saveProduct()"></p-button>
-                <p-button label="Cancel" [text]="true" icon="pi pi-times" (click)="productDialog = false;"></p-button>
-            </div>
-        </div>
-    </form>
-</p-dialog> -->
 
 <p-toolbar styleClass="mb-4 gap-2">
     <ng-template pTemplate="left">
-        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="showDialog('Agregar Heroe')"></button>
+        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="showDialog()"></button>
         <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
     </ng-template>
 
@@ -44,10 +11,11 @@
         <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
     </ng-template>
 </p-toolbar>
+
 <p-table
     #dt
     [value]="products"
-    [rows]=5
+    [rows]=10
     [paginator]="true"
     [globalFilterFields]="['nombre', 'genero', 'descripcion', 'categoria']"
     [tableStyle]="{ 'min-width': '75rem' }"
@@ -56,7 +24,7 @@
     dataKey="id"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
     [showCurrentPageReport]="true"
-    [rowsPerPageOptions]="[5, 10, 20]"
+    [rowsPerPageOptions]="[10, 20, 30]"
     [lazy]="true" (onLazyLoad)="getData($event)"
     [loading]="loading"
     [totalRecords]="total">

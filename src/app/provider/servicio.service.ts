@@ -14,23 +14,23 @@ export class ServicioService {
   }
   
   // Editar
-  post(model: string, data: any) {
-    return this.http.post(this.api + model, data, this.httpOptions);
+  BD_POST(model: string, data: any) {
+    return this.http.post(this.api + model, data);
   }
 
   // Agregar
-  put(model: string, data: any) {
-    return this.http.put(this.api + model, data, this.httpOptions);
+  BD_PUT(model: string, data: any) {
+    return this.http.put(this.api + model, data);
   }
 
   // Obtener
-  get(model: string,  pagina: number, limit: number) {
-    return this.http.get(this.api + model + '/' + pagina + '/' + limit, this.httpOptions);
+  BD_GET(model: string,  pagina: number, limit: number) {
+    return this.http.get(this.api + model + '/' + pagina + '/' + limit);
   }
 
   // Eliminar
-  delete(model: string, data: any) {
-    return this.http.delete(this.api + model + data, this.httpOptions);
+  BD_DELETE(model: string, data: any) {
+    return this.http.delete(this.api + model + data);
   }
 
 }
