@@ -88,7 +88,7 @@ export class LoginComponent implements OnInit {
   deleteSelectedProducts() {
     let message = { };
     this.confirmationService.confirm({
-      message: 'Are you sure you want to delete the selected Hero(s)?',
+      message: 'Are you sure you want to delete the selected Heroes?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
