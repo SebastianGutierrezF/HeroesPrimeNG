@@ -1,13 +1,7 @@
-.productoForm {
+.form {
     display: flex;
-    flex-direction: column;
+    flex-flow: column;
     align-items: stretch;
-    justify-content: center;
-    margin: auto;
-    gap: 10px;
+    gap: 7px;
     width: 500px;
-}
-
-.productoForm p-button {
-    float: right;
 }

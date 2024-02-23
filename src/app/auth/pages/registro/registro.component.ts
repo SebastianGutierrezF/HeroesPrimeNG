@@ -14,7 +14,7 @@ export class RegistroComponent implements OnInit {
     public config: DynamicDialogConfig
   ) { }
 
-  nuevoProducto: FormGroup = this.fb.group({
+  productoFormulario: FormGroup = this.fb.group({
     id: [''],
     nombre: ['', Validators.required],
     descripcion: ['', Validators.required],
@@ -22,24 +22,21 @@ export class RegistroComponent implements OnInit {
     genero: ['', Validators.required],
     url: ['', Validators.required]
   })
-  submitted = false;
   categorias = ["DC Comics", "Marvel"];
 
   ngOnInit(): void {
     if (this.config.data) {
-      this.nuevoProducto.patchValue(this.config.data);
+      this.productoFormulario.patchValue(this.config.data);
     }
   }
 
   hideDialog() {
-    this.submitted = false;
-    this.ref.close(this.submitted);
+    this.ref.close();
   }
 
   saveProduct() {
-    const data = this.nuevoProducto.value;
+    const data = this.productoFormulario.value;
     this.ref.close(data);
-    this.submitted = true;
   }
 
 }
