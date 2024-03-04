@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { RegistroComponent } from './pages/registro/registro.component';
+import { PermisosComponent } from './pages/permisos/permisos.component';
 
 const routes: Routes = [
   {
@@ -16,8 +17,12 @@ const routes: Routes = [
         component: RegistroComponent
       },
       {
+        path: 'permisos',
+        component: PermisosComponent
+      },
+      {
         path: '**',
-        redirectTo: 'heroes',
+        redirectTo: 'permisos',
         pathMatch: 'full'
       }
     ]

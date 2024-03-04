@@ -1,6 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
 import { LoginComponent } from './pages/login/login.component';
 import { RegistroComponent } from './pages/registro/registro.component';
 import { AuthRoutingModule } from './auth-routing.module';
@@ -22,37 +20,44 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { PaginatorComponent } from '../shared/paginator/paginator.component';
+import { PermisosComponent } from './pages/permisos/permisos.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
-  declarations: [
-    LoginComponent,
-    RegistroComponent
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    AuthRoutingModule,
-    TableModule,
-    ButtonModule,
-    TagModule,
-    RatingModule,
-    ToastModule,
-    ToolbarModule,
-    FileUploadModule,
-    DialogModule,
-    InputTextModule,
-    InputTextareaModule,
-    DropdownModule,
-    RadioButtonModule,
-    DynamicDialogModule,
-    ConfirmDialogModule,
-    InputGroupModule,
-    InputGroupAddonModule
-  ],
-  providers: [
-    ConfirmationService, 
-    MessageService, 
-    DialogService]
+    declarations: [
+        LoginComponent,
+        RegistroComponent,
+        PermisosComponent
+    ],
+    providers: [
+        ConfirmationService,
+        MessageService,
+        DialogService
+    ],
+    exports: [RegistroComponent],
+    imports: [
+        CommonModule,
+        AuthRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        TableModule,
+        ButtonModule,
+        TagModule,
+        RatingModule,
+        ToastModule,
+        ToolbarModule,
+        FileUploadModule,
+        DialogModule,
+        InputTextModule,
+        InputTextareaModule,
+        DropdownModule,
+        RadioButtonModule,
+        DynamicDialogModule,
+        ConfirmDialogModule,
+        InputGroupModule,
+        InputGroupAddonModule,
+        PaginatorComponent
+    ]
 })
 export class AuthModule { }

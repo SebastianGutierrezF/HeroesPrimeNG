@@ -1,5 +1,5 @@
-<p-toast></p-toast>
-<p-confirmDialog header="Confirmation" width="425"></p-confirmDialog>
+<!-- <p-toast></p-toast>
+<p-confirmDialog header="Confirmation" width="425"></p-confirmDialog> -->
 <!-- Pop up para agregar nuevo producto -->
 <!-- !!! IMPORTANTE !!! Lo convertí en componente a parte -->
 <!-- <p-dialog header="Heroes Detalles" 
@@ -32,7 +32,7 @@
         </div>
     </form>
 </p-dialog> -->
-
+<!-- 
 <p-toolbar styleClass="mb-4 gap-2">
     <ng-template pTemplate="left">
         <h2 class="m-0">Manage Heros</h2>
@@ -40,10 +40,10 @@
     
     <ng-template pTemplate="right">
         <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="showDialog('Agregar Heroe')"></button>
-        <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
-        <!-- <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
+        <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button> -->
+<!-- <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
         <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button> -->
-    </ng-template>
+<!-- </ng-template>
 </p-toolbar>
 <p-table
     #dt
@@ -109,4 +109,11 @@
     <ng-template pTemplate="summary">
         <div class="flex align-items-center justify-content-between">In total there are {{ products ? products.length : 0 }} products.</div>
     </ng-template>
-</p-table>
+</p-table> -->
+
+<app-paginator apiModel="productos" [globalFilterFields]="['nombre', 'genero', 'descripcion', 'categoria']"
+    header="Heroes" [cols]="columns"
+    [formGroup]="formGroup"
+    [formFields]="formFields"
+    [categorias]="categorias"
+    ></app-paginator>
