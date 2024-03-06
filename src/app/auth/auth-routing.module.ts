@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { RegistroComponent } from './pages/registro/registro.component';
 import { PermisosComponent } from './pages/permisos/permisos.component';
+import { PermisosUsuarioComponent } from './pages/permisos-usuario/permisos-usuario.component';
 
 const routes: Routes = [
   {
@@ -21,8 +22,12 @@ const routes: Routes = [
         component: PermisosComponent
       },
       {
+        path: 'permisosUsuario',
+        component: PermisosUsuarioComponent
+      },
+      {
         path: '**',
-        redirectTo: 'permisos',
+        redirectTo: 'permisosUsuario',
         pathMatch: 'full'
       }
     ]

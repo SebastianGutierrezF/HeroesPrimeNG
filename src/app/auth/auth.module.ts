@@ -20,15 +20,18 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { PickListModule } from 'primeng/picklist';
 import { PaginatorComponent } from '../shared/paginator/paginator.component';
 import { PermisosComponent } from './pages/permisos/permisos.component';
 import { CommonModule } from '@angular/common';
+import { PermisosUsuarioComponent } from './pages/permisos-usuario/permisos-usuario.component';
 
 @NgModule({
     declarations: [
         LoginComponent,
         RegistroComponent,
-        PermisosComponent
+        PermisosComponent,
+        PermisosUsuarioComponent
     ],
     providers: [
         ConfirmationService,
@@ -57,7 +60,8 @@ import { CommonModule } from '@angular/common';
         ConfirmDialogModule,
         InputGroupModule,
         InputGroupAddonModule,
-        PaginatorComponent
+        PaginatorComponent,
+        PickListModule
     ]
 })
 export class AuthModule { }

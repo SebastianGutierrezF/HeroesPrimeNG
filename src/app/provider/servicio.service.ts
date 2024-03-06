@@ -24,8 +24,8 @@ export class ServicioService {
   }
 
   // Obtener
-  get(model: string,  pagina: number, limit: number) {
-    return this.http.get(this.api + model + '/' + pagina + '/' + limit, this.httpOptions);
+  get(model: string,  pagina?: number, limit?: number) {
+    return this.http.get(this.api + model);
   }
 
   // Eliminar

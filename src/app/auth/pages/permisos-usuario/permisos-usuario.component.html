@@ -1,0 +1,29 @@
+<div class="card flex justify-content-center">
+    <p-dropdown [options]="usuarios" [(ngModel)]="selectedUser" placeholder="Select a user" [virtualScroll]="true"
+        [virtualScrollItemSize]="38" [virtualScrollOptions]="options" (onChange)="getPermisos()"></p-dropdown>
+</div>
+<br>
+<div class="card">
+    <p-pickList [source]="sourcePermisos" [target]="targetPermisos" sourceHeader="Permisos disponibles" targetHeader="Permisos asignados"
+        [dragdrop]="true" [responsive]="true" [sourceStyle]="{ height: '25rem' }" [targetStyle]="{ height: '25rem' }"
+        breakpoint="1000px"
+        (onMoveToSource)="quitarPermisos($event)"
+        (onMoveAllToSource)="quitarPermisos($event)"
+        (onMoveToTarget)="agregarPermisos($event)"
+        (onMoveAllToTarget)="agregarPermisos($event)"
+        >
+        <ng-template let-permiso pTemplate="item">
+            <div class="flex align-items-center">
+                <!-- <img class="w-4rem shadow-2 flex-shrink-0 border-round"
+                    src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
+                    alt="{item.name}" /> -->
+                <div class="flex flex-column gap-2">
+                    <span class="font-bold"><strong>{{ permiso.nombre }}</strong></span>
+                    <div class="flex align-items-center gap-2">
+                        <span>{{ permiso.accion }}</span>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-pickList>
+</div>
